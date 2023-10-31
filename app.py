@@ -2,11 +2,13 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import numpy as np
 import Var
+from flask_swagger_ui import get_swaggerui_blueprint
+
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!11'
+    return 'Inventario de modelos'
 
 
 @app.route('/var', methods=['POST'])
@@ -51,6 +53,19 @@ def var():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+
+SWAGGER_URL="/inventario"
+API_URL="/static/swagger.json"
+
+swagger_ui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': 'Access API'
+    }
+)
+app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 
 
 if __name__ == '__main__':

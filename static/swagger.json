@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Inventario de modelos de riesgo financiero - REST API",
+      "version": "0.0.1"
+    },
+    "paths": {
+      
+      "/var": {
+        "post": {
+
+          "description": "Calcula el Valor en Riesgo (VaR) tanto para un portafolio como para los activos que lo componen, utilizando una variedad de métodos que incluyen el enfoque de Varianza-Covarianza (VC), la Estimación de Pérdida Esperada (ES), el Análisis de Simulación Histórica VaR (HS) y el enfoque de Monte Carlo VaR (MC) ",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Parametro",
+              "in": "body",
+              "description": "Estructura json que contiene los retornos, nivel de confianza (alpha), pesos (pesos) y tiempo en días (time) ",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/AccessData"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Valor en Riesgo (VaR) calculado mediante diversas metodologías."
+            },
+            "400": {
+              "description": "Los parámetros ingresados son incorrectos"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "AccessData": {
+        "type": "object",
+        "properties": {
+          "portfolio_name": {
+            "type": "string",
+            "example:":"Argentina"
+          },
+          "alpha": {
+            "type": "integer",
+            "example:":95
+          },
+          "time": {
+            "type": "integer",
+            "example:":1
+          },
+          "w": {
+            "type": "object"          
+          },
+          "returns": {
+            "type": "object"          
+          }
+          
+        }
+      }
+    }
+  }
+  
